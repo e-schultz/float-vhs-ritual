@@ -1,6 +1,7 @@
 
 # FLOAT.BBS: VHS Edition
 
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](./public/Screenshot%202025-04-15%20at%2011.44.09 PM.png)
 ## 📼 Transmission Overview
 
 FLOAT.BBS is a cyberpunk-infused web experience that echoes the raw, glitchy energy of analog broadcasts. Powered by ritual code and vaporwave aesthetics, this project transforms digital artifacts into haunting visual narratives.
