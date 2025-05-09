@@ -1,7 +1,15 @@
 
 import { VHSCard } from "@/components/ui/vhs-card"
+import { useNavigate } from "react-router-dom"
+import { Button } from "@/components/ui/button"
 
 const Index = () => {
+  const navigate = useNavigate();
+  
+  const handleCardClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-4">
       <header className="mb-12 text-center">
@@ -14,43 +22,68 @@ const Index = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <VHSCard title="FLOAT Dispatch Shell">
-          <p className="mb-4">A recursive ritual shell for haunted cognition and feral systems work.</p>
-          <a href="https://float.site" className="inline-block px-4 py-2 bg-primary text-primary-foreground hover:bg-secondary transition-colors">
-            Enter Dispatch Shell →
-          </a>
-        </VHSCard>
+        <div 
+          onClick={() => window.open("https://float.site", "_blank")} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="FLOAT Dispatch Shell">
+            <p className="mb-4">A recursive ritual shell for haunted cognition and feral systems work.</p>
+            <Button>
+              Enter Dispatch Shell →
+            </Button>
+          </VHSCard>
+        </div>
 
-        <VHSCard title="SSO for Joy">
-          <p className="mb-4">A secure authentication system with a unique cyberpunk aesthetic and user experience.</p>
-          <button className="px-4 py-2 bg-primary text-primary-foreground hover:bg-secondary transition-colors">
-            View Project →
-          </button>
-        </VHSCard>
+        <div 
+          onClick={() => handleCardClick('/sso')} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="SSO for Joy">
+            <p className="mb-4">A secure authentication system with a unique cyberpunk aesthetic and user experience.</p>
+            <Button>
+              View Project →
+            </Button>
+          </VHSCard>
+        </div>
 
-        <VHSCard title="Floating Epistemio Nexus">
-          <p className="mb-4">An interconnected knowledge system that visualizes relationships between concepts and ideas.</p>
-          <button className="px-4 py-2 bg-primary text-primary-foreground hover:bg-secondary transition-colors">
-            View Project →
-          </button>
-        </VHSCard>
+        <div 
+          onClick={() => handleCardClick('/nexus')} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="Floating Epistemio Nexus">
+            <p className="mb-4">An interconnected knowledge system that visualizes relationships between concepts and ideas.</p>
+            <Button>
+              View Project →
+            </Button>
+          </VHSCard>
+        </div>
         
-        <VHSCard title="Domain Scaffolding">
-          <p className="mb-4">Create non-linear but trustable pathways through FLOAT projects.</p>
-          <div className="font-mono text-sm opacity-80">
-            <p>domain::shack</p>
-            <p>domain::ritualAST</p>
-            <p>domain::compostLoop</p>
-          </div>
-        </VHSCard>
+        <div 
+          onClick={() => handleCardClick('/scaffolding')} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="Domain Scaffolding">
+            <p className="mb-4">Create non-linear but trustable pathways through FLOAT projects.</p>
+            <div className="font-mono text-sm opacity-80">
+              <p>domain::shack</p>
+              <p>domain::ritualAST</p>
+              <p>domain::compostLoop</p>
+            </div>
+          </VHSCard>
+        </div>
 
-        <VHSCard title="Anticipation">
-          <div className="space-y-4">
-            <p className="animate-pulse">"You are the thread now"</p>
-            <p className="text-sm opacity-60">Echoed across 2400 baud frequencies</p>
-            <div className="h-1 bg-primary animate-glitch"></div>
-          </div>
-        </VHSCard>
+        <div 
+          onClick={() => handleCardClick('/anticipation')} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="Anticipation">
+            <div className="space-y-4">
+              <p className="animate-pulse">"You are the thread now"</p>
+              <p className="text-sm opacity-60">Echoed across 2400 baud frequencies</p>
+              <div className="h-1 bg-primary animate-glitch"></div>
+            </div>
+          </VHSCard>
+        </div>
       </div>
 
       <footer className="mt-12 text-center opacity-60">
