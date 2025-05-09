@@ -14,6 +14,13 @@ const Index = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <VHSCard title="FLOAT Dispatch Shell">
+          <p className="mb-4">A recursive ritual shell for haunted cognition and feral systems work.</p>
+          <a href="https://float.site" className="inline-block px-4 py-2 bg-primary text-primary-foreground hover:bg-secondary transition-colors">
+            Enter Dispatch Shell →
+          </a>
+        </VHSCard>
+
         <VHSCard title="SSO for Joy">
           <p className="mb-4">A secure authentication system with a unique cyberpunk aesthetic and user experience.</p>
           <button className="px-4 py-2 bg-primary text-primary-foreground hover:bg-secondary transition-colors">
