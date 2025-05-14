@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 const Index = () => {
   const navigate = useNavigate();
   
-  const handleCardClick = (path: string) => {
+  const handleNavigate = (path: string) => {
     navigate(path);
   };
 
@@ -35,7 +35,7 @@ const Index = () => {
         </div>
 
         <div 
-          onClick={() => handleCardClick('/sso')} 
+          onClick={() => handleNavigate('/sso')} 
           className="cursor-pointer transition-transform hover:scale-105"
         >
           <VHSCard title="SSO for Joy">
@@ -47,7 +47,7 @@ const Index = () => {
         </div>
 
         <div 
-          onClick={() => handleCardClick('/nexus')} 
+          onClick={() => handleNavigate('/nexus')} 
           className="cursor-pointer transition-transform hover:scale-105"
         >
           <VHSCard title="Floating Epistemio Nexus">
@@ -59,7 +59,7 @@ const Index = () => {
         </div>
         
         <div 
-          onClick={() => handleCardClick('/scaffolding')} 
+          onClick={() => handleNavigate('/scaffolding')} 
           className="cursor-pointer transition-transform hover:scale-105"
         >
           <VHSCard title="Domain Scaffolding">
@@ -73,7 +73,7 @@ const Index = () => {
         </div>
 
         <div 
-          onClick={() => handleCardClick('/anticipation')} 
+          onClick={() => handleNavigate('/anticipation')} 
           className="cursor-pointer transition-transform hover:scale-105"
         >
           <VHSCard title="Anticipation">
