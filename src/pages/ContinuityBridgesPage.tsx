@@ -46,7 +46,7 @@ interface ContinuityBridge {
     timestamp: string;
     anchor_id?: string;
   };
-  section_data: SectionData;
+  section_data?: SectionData; // Made this optional
   content_summary?: string;
 }
 
@@ -342,9 +342,13 @@ const ContinuityBridgesPage = () => {
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="mb-4">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="threads">Active Threads</TabsTrigger>
-                <TabsTrigger value="context">Context Elements</TabsTrigger>
-                <TabsTrigger value="timeline">Timeline</TabsTrigger>
+                {selectedBridge.section_data && (
+                  <>
+                    <TabsTrigger value="threads">Active Threads</TabsTrigger>
+                    <TabsTrigger value="context">Context Elements</TabsTrigger>
+                    <TabsTrigger value="timeline">Timeline</TabsTrigger>
+                  </>
+                )}
               </TabsList>
 
               <TabsContent value="overview">
@@ -355,25 +359,27 @@ const ContinuityBridgesPage = () => {
                       {formatMetadata(selectedBridge.metadata)}
                     </div>
                     
-                    <div>
-                      <h3 className="text-md font-mono mb-2 text-primary">Session Context</h3>
-                      <div className="mb-3">
-                        <span className="font-mono text-sm opacity-80">Date:</span> 
-                        <span className="ml-2 font-mono text-sm">{selectedBridge.section_data.session_context.date}</span>
+                    {selectedBridge.section_data && (
+                      <div>
+                        <h3 className="text-md font-mono mb-2 text-primary">Session Context</h3>
+                        <div className="mb-3">
+                          <span className="font-mono text-sm opacity-80">Date:</span> 
+                          <span className="ml-2 font-mono text-sm">{selectedBridge.section_data.session_context.date}</span>
+                        </div>
+                        
+                        <h4 className="text-sm font-mono mb-1 opacity-80">Thread Summary</h4>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {selectedBridge.section_data.active_threads.map(thread => (
+                            <span 
+                              key={thread.name} 
+                              className="text-xs bg-primary/20 text-primary px-2 py-1 rounded font-mono"
+                            >
+                              {thread.name}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      
-                      <h4 className="text-sm font-mono mb-1 opacity-80">Thread Summary</h4>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {selectedBridge.section_data.active_threads.map(thread => (
-                          <span 
-                            key={thread.name} 
-                            className="text-xs bg-primary/20 text-primary px-2 py-1 rounded font-mono"
-                          >
-                            {thread.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    )}
                   </div>
                   
                   {selectedBridge.content_summary && (
@@ -385,84 +391,88 @@ const ContinuityBridgesPage = () => {
                 </VHSCard>
               </TabsContent>
 
-              <TabsContent value="threads">
-                <VHSCard title="Active Threads">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Thread</TableHead>
-                        <TableHead>Activities</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {selectedBridge.section_data.active_threads.map((thread) => (
-                        <TableRow key={thread.name}>
-                          <TableCell className="font-mono">{thread.name}</TableCell>
-                          <TableCell>
-                            <ul className="list-disc pl-5 space-y-1">
-                              {thread.activities.map((activity, idx) => (
-                                <li key={idx} className="text-sm">{activity}</li>
-                              ))}
-                            </ul>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </VHSCard>
-              </TabsContent>
+              {selectedBridge.section_data && (
+                <>
+                  <TabsContent value="threads">
+                    <VHSCard title="Active Threads">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Thread</TableHead>
+                            <TableHead>Activities</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {selectedBridge.section_data.active_threads.map((thread) => (
+                            <TableRow key={thread.name}>
+                              <TableCell className="font-mono">{thread.name}</TableCell>
+                              <TableCell>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  {thread.activities.map((activity, idx) => (
+                                    <li key={idx} className="text-sm">{activity}</li>
+                                  ))}
+                                </ul>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </VHSCard>
+                  </TabsContent>
 
-              <TabsContent value="context">
-                <VHSCard title="Notable Context Elements">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <h3 className="text-md font-mono mb-2 text-primary">System Mode</h3>
-                      <p className="opacity-90">{selectedBridge.section_data.notable_context_elements.system_mode}</p>
-                      
-                      <h3 className="text-md font-mono mb-2 mt-4 text-primary">Key Metaphors</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedBridge.section_data.notable_context_elements.key_metaphors.map((metaphor, idx) => (
-                          <span 
-                            key={idx} 
-                            className="text-sm bg-accent px-2 py-1 rounded"
-                          >
-                            {metaphor}
-                          </span>
+                  <TabsContent value="context">
+                    <VHSCard title="Notable Context Elements">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <h3 className="text-md font-mono mb-2 text-primary">System Mode</h3>
+                          <p className="opacity-90">{selectedBridge.section_data.notable_context_elements.system_mode}</p>
+                          
+                          <h3 className="text-md font-mono mb-2 mt-4 text-primary">Key Metaphors</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedBridge.section_data.notable_context_elements.key_metaphors.map((metaphor, idx) => (
+                              <span 
+                                key={idx} 
+                                className="text-sm bg-accent px-2 py-1 rounded"
+                              >
+                                {metaphor}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h3 className="text-md font-mono mb-2 text-primary">Signal Phrases</h3>
+                          <ul className="list-disc pl-5 space-y-1">
+                            {selectedBridge.section_data.notable_context_elements.signal_phrases.map((phrase, idx) => (
+                              <li key={idx} className="italic text-sm">{phrase}</li>
+                            ))}
+                          </ul>
+                          
+                          <h3 className="text-md font-mono mb-2 mt-4 text-primary">Open Traces</h3>
+                          <ul className="list-disc pl-5 space-y-1">
+                            {selectedBridge.section_data.notable_context_elements.open_traces.map((trace, idx) => (
+                              <li key={idx} className="text-sm">{trace}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </VHSCard>
+                  </TabsContent>
+
+                  <TabsContent value="timeline">
+                    <VHSCard title="Temporal Markers">
+                      <div className="space-y-4">
+                        {selectedBridge.section_data.session_context.timestamp_markers.map((marker, idx) => (
+                          <div key={idx} className="flex items-start gap-3 p-2 border-l-2 border-primary pl-3">
+                            <Calendar size={16} className="text-primary mt-1" />
+                            <p className="font-mono text-sm">{marker}</p>
+                          </div>
                         ))}
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-md font-mono mb-2 text-primary">Signal Phrases</h3>
-                      <ul className="list-disc pl-5 space-y-1">
-                        {selectedBridge.section_data.notable_context_elements.signal_phrases.map((phrase, idx) => (
-                          <li key={idx} className="italic text-sm">{phrase}</li>
-                        ))}
-                      </ul>
-                      
-                      <h3 className="text-md font-mono mb-2 mt-4 text-primary">Open Traces</h3>
-                      <ul className="list-disc pl-5 space-y-1">
-                        {selectedBridge.section_data.notable_context_elements.open_traces.map((trace, idx) => (
-                          <li key={idx} className="text-sm">{trace}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </VHSCard>
-              </TabsContent>
-
-              <TabsContent value="timeline">
-                <VHSCard title="Temporal Markers">
-                  <div className="space-y-4">
-                    {selectedBridge.section_data.session_context.timestamp_markers.map((marker, idx) => (
-                      <div key={idx} className="flex items-start gap-3 p-2 border-l-2 border-primary pl-3">
-                        <Calendar size={16} className="text-primary mt-1" />
-                        <p className="font-mono text-sm">{marker}</p>
-                      </div>
-                    ))}
-                  </div>
-                </VHSCard>
-              </TabsContent>
+                    </VHSCard>
+                  </TabsContent>
+                </>
+              )}
             </Tabs>
           )}
         </div>
