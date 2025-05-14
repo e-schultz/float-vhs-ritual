@@ -10,6 +10,7 @@ import SSOPage from "./pages/SSOPage";
 import NexusPage from "./pages/NexusPage";
 import ScaffoldingPage from "./pages/ScaffoldingPage";
 import AnticipationPage from "./pages/AnticipationPage";
+import ContinuityBridgesPage from "./pages/ContinuityBridgesPage";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/nexus" element={<NexusPage />} />
           <Route path="/scaffolding" element={<ScaffoldingPage />} />
           <Route path="/anticipation" element={<AnticipationPage />} />
+          <Route path="/continuity-bridges" element={<ContinuityBridgesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

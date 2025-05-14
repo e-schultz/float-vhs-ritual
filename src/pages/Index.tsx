@@ -84,6 +84,22 @@ const Index = () => {
             </div>
           </VHSCard>
         </div>
+
+        <div 
+          onClick={() => handleNavigate('/continuity-bridges')} 
+          className="cursor-pointer transition-transform hover:scale-105"
+        >
+          <VHSCard title="Continuity Bridges">
+            <div className="space-y-4">
+              <p className="mb-4">Temporal-cognitive anchors for FLOAT system continuity across sessions.</p>
+              <div className="font-mono text-sm opacity-80">
+                <p>ctx::bridge::interface</p>
+                <p>mode::bridge_transition</p>
+                <p>status::active_threads</p>
+              </div>
+            </div>
+          </VHSCard>
+        </div>
       </div>
 
       <footer className="mt-12 text-center opacity-60">
